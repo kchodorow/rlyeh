@@ -7,6 +7,7 @@
 // define the function(s) we want to add
 zend_function_entry rlyeh_functions[] = {
   PHP_FE(cthulhu, NULL)
+  PHP_FE(makeObject, NULL)
   { NULL, NULL, NULL }
 };
 
@@ -33,4 +34,12 @@ ZEND_GET_MODULE(rlyeh)
 PHP_FUNCTION(cthulhu) {
   // php_printf is PHP's version of printf, it's essentially "echo" from C
   php_printf("In his house at R'lyeh dead Cthulhu waits dreaming.\n");
+}
+
+PHP_FUNCTION(makeObject) {
+  object_init(return_value);
+
+  // add a couple of properties
+  zend_update_property_string(NULL, return_value, "name", strlen("name"), "yig" TSRMLS_CC);
+  zend_update_property_long(NULL, return_value, "worshippers", strlen("worshippers"), 4 TSRMLS_CC);
 }
