@@ -6,6 +6,7 @@ zend_class_entry *rlyeh_ce_cultist;
 
 static function_entry cultist_methods[] = {
   PHP_ME(Cultist, sacrifice, NULL, ZEND_ACC_PUBLIC)
+  PHP_ME(Cultist, createCultist, NULL, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
   {NULL, NULL, NULL}
 };
 
@@ -21,4 +22,8 @@ void rlyeh_init_cultist(TSRMLS_D) {
 
 PHP_METHOD(Cultist, sacrifice) {
   // TODO
+}
+
+PHP_METHOD(Cultist, createCultist) {
+  object_init_ex(return_value, rlyeh_ce_cultist);
 }
