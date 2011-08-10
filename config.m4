@@ -5,7 +5,7 @@ PHP_ARG_ENABLE(rlyeh, whether to enable Rlyeh extension, [  --enable-rlyeh   Ena
 if test "$PHP_RLYEH" != "no"; then
 
   dnl this defines the extension
-  PHP_NEW_EXTENSION(rlyeh, php_rlyeh.c, $ext_shared)
+  PHP_NEW_EXTENSION(rlyeh, php_rlyeh.c cultist.c, $ext_shared)
 
   dnl this is boilerplate to make the extension work on OS X
   case $build_os in

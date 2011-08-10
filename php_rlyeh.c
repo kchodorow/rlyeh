@@ -3,6 +3,7 @@
 
 // header file we'll create below
 #include "php_rlyeh.h"
+#include "cultist.h"
 
 // define the function(s) we want to add
 zend_function_entry rlyeh_functions[] = {
@@ -17,7 +18,7 @@ zend_module_entry rlyeh_module_entry = {
   STANDARD_MODULE_HEADER,
   PHP_RLYEH_EXTNAME,
   rlyeh_functions,
-  NULL,
+  PHP_MINIT(rlyeh),
   NULL,
   NULL,
   NULL,
@@ -25,6 +26,10 @@ zend_module_entry rlyeh_module_entry = {
   PHP_RLYEH_VERSION,
   STANDARD_MODULE_PROPERTIES
 };
+
+PHP_MINIT_FUNCTION(rlyeh) {
+  rlyeh_init_cultist(TSRMLS_C);
+}
 
 // install module
 ZEND_GET_MODULE(rlyeh)
