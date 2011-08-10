@@ -1,5 +1,6 @@
 #include <php.h>
 
+#include "php_rlyeh.h"
 #include "cultist.h"
 
 zend_class_entry *rlyeh_ce_cultist;
@@ -31,4 +32,5 @@ PHP_METHOD(Cultist, sacrifice) {
 
 PHP_METHOD(Cultist, createCultist) {
   object_init_ex(return_value, rlyeh_ce_cultist);
+  CALL_METHOD(Cultist, __construct, return_value, return_value);
 }
