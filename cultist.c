@@ -23,7 +23,18 @@ void rlyeh_init_cultist(TSRMLS_D) {
 }
 
 PHP_METHOD(Cultist, __construct) {
-  php_printf("in the constructor\n");
+  char *name;
+  int name_len;
+  // defaults
+  long health = 10, sanity = 4;
+  
+  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s|ll", &name, &name_len, &health, &sanity) == FAILURE) {
+    return;
+  }  
+  
+  zend_update_property_stringl(rlyeh_ce_cultist, getThis(), "name", strlen("name"), name, name_len TSRMLS_CC);
+  zend_update_property_long(rlyeh_ce_cultist, getThis(), "health", strlen("health"), health TSRMLS_CC);
+  zend_update_property_long(rlyeh_ce_cultist, getThis(), "sanity", strlen("sanity"), sanity TSRMLS_CC);
 }
 
 PHP_METHOD(Cultist, sacrifice) {
