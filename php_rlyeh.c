@@ -7,6 +7,8 @@
 // define the function(s) we want to add
 zend_function_entry rlyeh_functions[] = {
   PHP_FE(cthulhu, NULL)
+  PHP_FE(chant, NULL)
+  PHP_FE(findMonster, NULL)
   { NULL, NULL, NULL }
 };
 
@@ -44,4 +46,40 @@ PHP_FUNCTION(cthulhu) {
   else {
     php_printf("Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn.\n");
   }
+}
+
+PHP_FUNCTION(chant) {
+  int str_len, i;
+  long num;
+  char *str;
+  zval *arr;
+
+  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "lsa", &num, &str, &str_len, &arr) == FAILURE) {
+    return;
+  }
+
+  // sanity check
+  if (num < 0 || num > 100) {
+    return;
+  }
+
+  for (i=0; i<num; i++) {
+    add_next_index_stringl(arr, str, str_len, 1);
+  }
+}
+
+PHP_FUNCTION(findMonster) {
+  int monster_len;
+  char *monster;
+  zval *list, **desc;
+
+  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sa", &monster, &monster_len, &list) == FAILURE) {
+    return;
+  }
+
+  if (zend_hash_find(Z_ARRVAL_P(list), monster, monster_len+1, (void**)&desc) == FAILURE) {
+    RETURN_NULL();
+  }
+
+  RETURN_STRINGL(Z_STRVAL_PP(desc), Z_STRLEN_PP(desc), 1);
 }
